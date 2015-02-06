@@ -1,0 +1,2 @@
+# Inventarliste
+Einfache Inventarliste
