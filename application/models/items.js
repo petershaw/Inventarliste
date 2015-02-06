@@ -19,7 +19,7 @@ var Item = module.exports = function feedback(app) {
 	/**
 	 * @constant Define how many items should shown per page
 	 */
-	const showPerPage = 20;
+	var showPerPage = 20;
 
 	// Item schema definition
 	var Item = require(__dirname +'/itemsSchema');
