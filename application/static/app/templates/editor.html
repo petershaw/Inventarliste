@@ -1,0 +1,47 @@
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Bearbeiten und Erfassen</h3>
+  </div>
+  <div class="panel-body">
+    <% if(data.error){ %>
+	    <div class="alert alert-danger" role="alert"><%= data.error %></div>
+    <% } %>
+
+	<div class="input-group">
+		<span class="input-group-addon" id="basic-addon1">ID</span>
+		<input name="indexNumber" type="text" value="<%= model.get('id') %>"<% if(model.get('id')) {%>disabled<% } %> class="form-control" placeholder="Bestehende oder neue Inventarnummer" aria-describedby="basic-addon1">
+	</div>
+	
+    <% if(data.message){ %>
+    	</br />
+	    <div class="alert alert-success" role="alert"><%= data.message %></div>
+    <% } %>
+    
+    <% if(model.get('id')) {%>
+    	<hr />
+    	<div class="form-group">
+			<div class="input-group">
+				<span class="input-group-addon" id="basic-addon2">Name </span>
+				<input name="name" type="text" value="<%= model.get('name') %>" class="form-control" placeholder="Geb' dem Ding einen Namen" aria-describedby="basic-addon2">
+			</div><br />
+			<div class="input-group">
+				<span class="input-group-addon" id="basic-addon3">Owner</span>
+				<input name="owner" type="text" value="<%= model.get('owner') %>" class="form-control" placeholder="Wem gehört es?" aria-describedby="basic-addon3">
+			</div><br />	
+			<div class="input-group">
+				<textarea name="description" class="form-control" rows="5" cols="100" placeholer="Beschreibe das Ding kurz"><%= model.get('description') %></textarea>
+			</div>  	
+    	</div>
+	    <hr />
+	    
+    	<div class="form-group pull-right">
+    		<div class="input-group" >
+	    		<button type="button" data-action="cancel" class="btn btn-danger">Abbrechen</button>
+	    		&nbsp;&nbsp;
+	    		<button type="button" data-action="save" class="btn btn-success">Speichern</button>
+	    	</div>
+    	</div>
+    <% } %>
+  </div>
+</div>

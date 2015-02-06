@@ -1,0 +1,47 @@
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Bestandsliste
+	    <span class="action badge pull-right"><%= collection.count %></span>
+    </h3>
+  </div>
+  <div class="panel-body">
+    <% if(data.error){ %>
+	    <div class="alert alert-danger" role="alert"><%= data.error %></div>
+    <% } %>
+
+    <% if(data.message){ %>
+    	</br />
+	    <div class="alert alert-success" role="alert"><%= data.message %></div>
+    <% } %>
+    
+    <% _.each(collection.models, function(model){ %>
+		<div class="row">
+			<div class="col-md-4"><%= model.get('indexNumber') %></div>
+			<div class="col-md-8"><%= model.get('name') %></div>
+		</div>
+    <% }); %>
+
+
+	<hr />
+
+		<nav class="col-md-12 text-center">
+		  <ul class="pagination">
+			<li <%if(collection.prev == null){%> class="disabled" <% } %>>
+			  <a href="javascript: void(0);" data-action="prev" aria-label="Previous">
+				<span aria-hidden="true">&laquo;</span>
+			  </a>
+			</li>
+			<% _.each(collection.pages, function(page){ %>
+				<li <%if(page == collection.current){%> class="active"<%}%>><a href="javascript: void(0);" data-action="page" data="<%= page %>"><%= page %></a></li>
+			<% }); %>			
+			<li <%if(collection.next == null){%> class="disabled" <% } %>>
+			  <a href="javascript: void(0);" data-action="next" aria-label="Next">
+				<span aria-hidden="true">&raquo;</span>
+			  </a>
+			</li>
+		  </ul>
+		</nav>
+
+  </div>
+</div>

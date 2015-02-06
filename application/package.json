@@ -1,0 +1,28 @@
+{
+  "name": "Inventar",
+  "version": "1.0.0",
+  "description": "Inventar manager",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "find ./tests -name '*Test.js' | xargs mocha -R spec",
+    "postinstall": "./node_modules/bower/bin/bower install"
+  },
+  "author": "Peter Shaw",
+  "license": "none",
+  "dependencies": {
+    "async": "^0.9.0",
+    "bower": "^1.3.12",
+    "log": "^1.4.0",
+    "mongoose": "^3.8.22",
+    "mongoose-query-paginate": "^1.0.1",
+    "restify": "^2.8.5",
+    "string": "^3.0.0",
+    "underscore": "^1.7.0"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "mocha": "^2.1.0",
+    "mockgoose": "^1.10.7"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Inventar",
+  "version": "1.0.0",
+  "authors": [
+    "Peter Shaw <unthoughted@googlemail.com>"
+  ],
+  "main": "./static/web.js",
+  "license": "none",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.2",
+    "backbone": "~1.1.2",
+    "requirejs": "~2.1.15",
+    "requirejs-text": "~2.0.13",
+    "requirejs-plugins": "~1.0.3",
+    "requirejs-bower": "~2.1.15"
+  }
+}
