@@ -36,6 +36,9 @@ define([
         	this.collection.on('add', function(model){
         		that.fetchAndRender();
         	});
+        	this.collection.on('remove', function(model){
+	        	that.fetchAndRender();
+        	});
         }
 		
 		, fetchAndRender: function(){

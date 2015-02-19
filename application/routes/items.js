@@ -59,6 +59,26 @@ module.exports = function(app) {
 		}
 	);
 	
+	app.server.del('/items/:indexNumber' 
+		, function(req, res, next){
+			app.models.items.getByIndexNumber(req.params.indexNumber, function(err, document){
+				if(!document || document == null){
+					err = "Item nicht gefunden."
+				}
+				if(err){
+					return res.send(500, new Error(err));
+				}
+console.log("HABEN INDEX", document);
+				app.models.items.deleteItem(document._id, function(err, document){
+					if(err){ 
+						return res.send(500, new Error(err)); 
+					}
+					res.send(200, document);
+				});
+			});
+		}
+	);
+	
 	app.server.post('/items'
 		, function(req, res, next){
 			console.log("NOT IMPLEMENTED, YET");

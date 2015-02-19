@@ -103,6 +103,18 @@ var Item = module.exports = function feedback(app) {
 		Item.update({ _id: ObjectId(id) }, data, callback);				
 	 };
 
+	  /**
+	  * @function
+	  * Delete a item
+	  * 
+	  * @param ObjectId id
+	  * @param object new data
+	  * @param function Callback that will be called with the result
+	  */
+	 var deleteItem = function del(id, callback){
+		Item.remove({_id: ObjectId(id)}, callback);
+	 };
+
 	 /**
 	  * @function
 	  * get a filterd and sorted and paged list of all items
@@ -135,6 +147,7 @@ var Item = module.exports = function feedback(app) {
 		, count:				count
 		, addItem: 				addItem
 		, updateItem: 			updateItem
+		, deleteItem:			deleteItem
 		, getPagedList: 		getPagedList
 		, showPerPage:			showPerPage
 		, Model:				Item

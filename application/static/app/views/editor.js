@@ -24,6 +24,7 @@ define([
         , events: {
              'click [data-action="save"]':		'shouldAddItem'
         	,'click [data-action="cancel"]':	'shouldCancel'
+        	,'click [data-action="delete"]':	'shouldDelete'
            , 'change input': 					'didValueChange'
 		   , 'change textarea': 				'didValueChange'
         }
@@ -98,7 +99,21 @@ define([
 	        delete that.model;
     		return that.render();
         }
-        
+
+        , shouldDelete: function add(event){
+        	var that = this;
+        	that.model.destroy({
+	        	success: function ok(){
+	        		that.collection.remove(that.model);
+					delete that.model;
+    	    		return that.render(null, "Item wurde erfolgreich gelöscht");   	
+    	    	},
+    	    	error: function fail(model, err){
+    	    		return that.render('Fehler beim löschen des Items.'+ JSON.stringify(err), null);
+    	    	}
+        	})
+    		return that.render();
+        }        
     });
 
     return DashboardView;

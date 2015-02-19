@@ -34,10 +34,12 @@
 			</div>  	
     	</div>
 	    <hr />
-	    
+	    <div class="form-group pull-left">
+	    	<button type="button" data-action="delete" class="btn btn-danger <% if(model.isNew() == true) {%>disabled<% } %>">Löschen</button>
+		</div>
     	<div class="form-group pull-right">
     		<div class="input-group" >
-	    		<button type="button" data-action="cancel" class="btn btn-danger">Abbrechen</button>
+	    		<button type="button" data-action="cancel" class="btn btn-warning">Abbrechen</button>
 	    		&nbsp;&nbsp;
 	    		<button type="button" data-action="save" class="btn btn-success">Speichern</button>
 	    	</div>
