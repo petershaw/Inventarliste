@@ -24,14 +24,18 @@ define([
 		, currentPage: 1
 		
         , events: {
-             'click [data-action="next"]':		'shouldLoadNextPage'
-        	,'click [data-action="prev"]':		'shouldLoadPrevPage'
-        	,'click [data-action="page"]':		'shouldLoadPage'
-           , 'change input': 					'didValueChange'
+             'click [data-action="next"]':			'shouldLoadNextPage'
+        	,'click [data-action="prev"]':			'shouldLoadPrevPage'
+        	,'click [data-action="page"]':			'shouldLoadPage'
+        	,'click [data-id]':					'shouldEdit'
+        	,'mouseover [data-omo="underline"]':	'shouldUnderline'
+        	, 'change input': 						'didValueChange'
         }
 
         , initialize: function () {
         	var that = this;
+        	that.globalEvent = _.extend(window, Backbone.Events);
+        	
         	this.fetchAndRender();
         	this.collection.on('add', function(model){
         		that.fetchAndRender();
@@ -77,6 +81,13 @@ define([
         	console.log( event.target.name, event.target.value );
         }
         
+        , shouldUnderline: function underline(event){
+        	$(event.target).addClass('omo-underline');
+        	$(event.target).mouseout(function mouseout(){
+	        	$(event.target).removeClass('omo-underline');
+        	});
+        }
+        
         , shouldLoadNextPage: function add(event){
         	this.currentPage = this.currentPage +1;
     		return this.fetchAndRender();
@@ -90,7 +101,12 @@ define([
         , shouldLoadPage: function add(event){
         	this.currentPage = $(event.target).attr('data');
     		return this.fetchAndRender();
-        }        
+        }
+        
+        , shouldEdit: function edit(event){
+        	var id = $(event.target).data('id');
+        	this.globalEvent.trigger("item:edit", id);
+        }
         
     });
 

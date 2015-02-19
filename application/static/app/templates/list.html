@@ -17,8 +17,8 @@
     
     <% _.each(collection.models, function(model){ %>
 		<div class="row">
-			<div class="col-md-4"><%= model.get('indexNumber') %></div>
-			<div class="col-md-8"><%= model.get('name') %></div>
+			<div class="col-md-4" data-omo="underline" data-id="<%= model.get('indexNumber') %>"><%= model.get('indexNumber') %></div>
+			<div class="col-md-8" data-omo="underline" data-id="<%= model.get('indexNumber') %>"><%= model.get('name') %></div>
 		</div>
     <% }); %>
 

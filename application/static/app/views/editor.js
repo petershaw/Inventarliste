@@ -18,7 +18,7 @@ define([
 	, Template
 ){
     var DashboardView = Backbone.View.extend({
-
+    
         el: $('#editor')
 
         , events: {
@@ -27,10 +27,17 @@ define([
         	,'click [data-action="delete"]':	'shouldDelete'
            , 'change input': 					'didValueChange'
 		   , 'change textarea': 				'didValueChange'
+		   , 'item:edit':						'shouldLoadItem'
         }
 
         , initialize: function () {
-        	//this.collection = new Collection();
+        	var that =  this;
+	        that.globalEvent = _.extend(window, Backbone.Events);
+  			that.globalEvent.on("item:edit", function itemEdit(id){
+  				$.proxy(that.shouldLoadItem(id), "test")
+  			});
+  				
+			
 			this.render();
         }
 
@@ -55,6 +62,17 @@ define([
 	            $('[name="name"]').focus();
 	        }
 	        $('.alert-success').fadeOut(4000);
+        }
+        
+        , shouldLoadItem: function shouldLoad(id){
+        	var that = this;
+        	that.model = new Model({id: id});
+			that.model.fetch({
+	        	success: function ok( model, response, options ){
+		        	that.model = model;
+	        		return that.render();
+	        	}
+	        });
         }
         
         , didValueChange: function valueChange(event){
