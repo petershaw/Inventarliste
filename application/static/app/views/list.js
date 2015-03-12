@@ -20,6 +20,8 @@ define([
     var DashboardView = Backbone.View.extend({
 
         el: $('#list')
+        
+        , queryTerm: null
 		
 		, currentPage: 1
 		
@@ -47,8 +49,12 @@ define([
 		
 		, fetchAndRender: function(){
 			var that = this;
+			var data = {page: that.currentPage};
+			if(this.queryTerm && this.queryTerm.length > 0){
+				data.q = this.queryTerm;
+			}
 			this.collection.fetch({
-        		data: {page: that.currentPage}
+        		data: data
         		, success: function(collection, response, options){
         			that.render();
         		}
@@ -73,11 +79,17 @@ define([
 	            }
             	, collection: that.collection
             }));
+            $('[name="q"]').val(this.queryTerm || '');
 	        $('.alert-success').fadeOut(4000);
         }
         
         , didValueChange: function valueChange(event){
         	var that = this;
+        	if(event.target.name == "q"){	// perform query
+        		this.queryTerm = event.target.value;
+        		return this.fetchAndRender();
+        	}
+        	
         	console.log( event.target.name, event.target.value );
         }
         

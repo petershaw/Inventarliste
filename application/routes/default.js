@@ -19,7 +19,7 @@ module.exports = function(app) {
 		}
 	);
 	
-	app.server.get(/.(html|js|css|map)/, restify.serveStatic({
+	app.server.get(/.(html|js|css|map|woff|ttf)/, restify.serveStatic({
 		directory: './static'
 	}));
 	

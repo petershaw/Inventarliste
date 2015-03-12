@@ -7,15 +7,27 @@ module.exports = function(app) {
 
 	app.server.get('/items'
 		, function(req, res, next){
-			app.models.items.getPagedList(req.params.page, req.params.filter || {}, function(err, documents){
-				if(err){
-					return res.send(500, new Error(err));
-				}
-				if(documents){
-					return res.send(200, documents);
-				}
-				return res.send(204);
-			});
+			if(req.query.q){	
+				app.models.itemsSearch.search(req.query.q, function(err, documents){
+					if(err){
+						return res.send(500, new Error(err));
+					}
+					if(documents){			
+						return res.send(200, documents);
+					}
+					return res.send(204);
+				});
+			} else {
+				app.models.items.getPagedList(req.params.page, req.params.filter || {}, function(err, documents){
+					if(err){
+						return res.send(500, new Error(err));
+					}
+					if(documents){
+						return res.send(200, documents);
+					}
+					return res.send(204);
+				});
+			}
 		}
 	);
 
@@ -68,7 +80,6 @@ module.exports = function(app) {
 				if(err){
 					return res.send(500, new Error(err));
 				}
-console.log("HABEN INDEX", document);
 				app.models.items.deleteItem(document._id, function(err, document){
 					if(err){ 
 						return res.send(500, new Error(err)); 

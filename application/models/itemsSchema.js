@@ -1,6 +1,8 @@
 "use strict";
 var mongoose		= require('mongoose')
 	, _				= require('underscore')
+	, searchPlugin 	= require('mongoose-search-plugin')
+	, textSearch 	= require('mongoose-text-search');
 	;
 
 /**
@@ -52,6 +54,19 @@ ItemSchema.index({
 	, name:			1
 	, owner:		1
 });
+
+ItemSchema.index({ 
+ 	  name: 'text' 
+ 	, owner: 'text' 
+ 	, description: 'text'
+});
+
+// Plugins
+console.log("Search on ", _.keys(ItemDefinition));
+ItemSchema.plugin(searchPlugin, {
+	fields: _.keys(ItemDefinition)
+});
+ItemSchema.plugin(textSearch);
 
 /**
  * @public Feedback Schema API
