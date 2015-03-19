@@ -15,7 +15,7 @@
 NAME=Inventarliste
 APPSDIR=/srv/invdb/applications
 APPENV=production
-APPUSER=invdb
+APPUSER=www-data
 DAEMON=$(which forever)
 PIDFILE=/tmp/$NAME.pid
 ARGS="--pidFile $PIDFILE -a -l /var/log/$NAME/$NAME.log -o /var/log/$NAME/$NAME.out -e /var/log/$NAME/$NAME.err start $APPSDIR/$NAME/app/app.js"
