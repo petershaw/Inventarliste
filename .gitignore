@@ -2,3 +2,4 @@ application/node_modules
 .DS_Store
 application/log/application.log
 application/static/components
+app/node_modules
