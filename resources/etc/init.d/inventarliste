@@ -1,0 +1,90 @@
+#!/bin/sh
+ 
+### BEGIN INIT INFO
+# Provides:          Inventarliste
+# Required-Start:    $local_fs $network
+# Required-Stop:     $local_fs $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# X-Interactive:     true
+# Short-Description: Start/stop the Inventarliste, see https://github.com/petershaw/Inventarliste/tree/stable
+### END INIT INFO
+ 
+. /lib/lsb/init-functions
+ 
+NAME=Inventarliste
+APPSDIR=/srv/invdb/applications
+APPENV=production
+APPUSER=invdb
+DAEMON=$(which forever)
+PIDFILE=/tmp/$NAME.pid
+ARGS="--pidFile $PIDFILE -a -l /var/log/$NAME/$NAME.log -o /var/log/$NAME/$NAME.out -e /var/log/$NAME/$NAME.err start /home/opentabs/applications/$NAME/cluster.js"
+STOPARGS="stop $APPSDIR/$NAME/app.js"
+
+NODE_ENV=$APPENV
+PORT=8000
+export NODE_ENV PORT
+ 
+
+start() {
+    # START THE SERVICE IS IT IS NOT RUNNING
+    # --------------------------------------
+	cd /home/opentabs/applications/$NAME
+        NODE_ENV=$APPENV
+        echo "starting $NAME"
+        if [ -f $PIDFILE ]; then
+                echo "$NAME is allready running. Please check forever and $PIDFILE, try status()"
+        else
+            echo $DAEMON $ARGS
+                sudo -u $APPUSER PORT=$PORT NODE_ENV=$NODE_ENV $DAEMON $ARGS
+        fi
+    return
+}
+ 
+stop() {
+        # STOP THE SERVICE AND REMOVE PIDFILE
+        # --------------------------------------
+    sudo -u $APPUSER $DAEMON $STOPARGS
+        rm $PIDFILE
+}
+ 
+status() {
+    # IF THE PROCESS IS RUNNING?
+        # --------------------------------------
+        if [ -f $PIDFILE ]; then
+           pid=$(cat $PIDFILE)
+           if [ -d /proc/$pid ]; then
+          echo "$NAME is running.\n"
+          return
+           fi
+       echo "$PIDFILE exists, but $NAME is not running!\n";
+        fi
+    echo "$NAME is not running.\n"
+}
+ 
+case "$1" in
+    start)
+    start  
+    ;;
+ 
+    stop)
+    stop
+    ;;
+ 
+ 
+    status)
+    status
+    ;;
+ 
+    restart)
+    stop
+    start
+    ;;
+ 
+    *)
+    echo  "Usage: /etc/init.d/$NAME {start|stop|status|restart}"
+    exit 1
+    ;;
+esac
+ 
+exit 0
