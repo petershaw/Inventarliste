@@ -18,8 +18,8 @@ APPENV=production
 APPUSER=invdb
 DAEMON=$(which forever)
 PIDFILE=/tmp/$NAME.pid
-ARGS="--pidFile $PIDFILE -a -l /var/log/$NAME/$NAME.log -o /var/log/$NAME/$NAME.out -e /var/log/$NAME/$NAME.err start /home/opentabs/applications/$NAME/cluster.js"
-STOPARGS="stop $APPSDIR/$NAME/app.js"
+ARGS="--pidFile $PIDFILE -a -l /var/log/$NAME/$NAME.log -o /var/log/$NAME/$NAME.out -e /var/log/$NAME/$NAME.err start /home/opentabs/applications/$NAME/app/app.js"
+STOPARGS="stop $APPSDIR/$NAME/app/app.js"
 
 NODE_ENV=$APPENV
 PORT=8000
