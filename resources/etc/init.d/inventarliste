@@ -18,7 +18,7 @@ APPENV=production
 APPUSER=invdb
 DAEMON=$(which forever)
 PIDFILE=/tmp/$NAME.pid
-ARGS="--pidFile $PIDFILE -a -l /var/log/$NAME/$NAME.log -o /var/log/$NAME/$NAME.out -e /var/log/$NAME/$NAME.err start /home/opentabs/applications/$NAME/app/app.js"
+ARGS="--pidFile $PIDFILE -a -l /var/log/$NAME/$NAME.log -o /var/log/$NAME/$NAME.out -e /var/log/$NAME/$NAME.err start $APPSDIR/$NAME/app/app.js"
 STOPARGS="stop $APPSDIR/$NAME/app/app.js"
 
 NODE_ENV=$APPENV
@@ -29,7 +29,7 @@ export NODE_ENV PORT
 start() {
     # START THE SERVICE IS IT IS NOT RUNNING
     # --------------------------------------
-	cd /home/opentabs/applications/$NAME
+	cd $APPSDIR/$NAME
         NODE_ENV=$APPENV
         echo "starting $NAME"
         if [ -f $PIDFILE ]; then
